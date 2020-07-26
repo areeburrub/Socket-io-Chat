@@ -1,0 +1,101 @@
+<html>
+<head>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<title>Socket IO ChatApp</title>
+    
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<style>
+	.message{
+		font-family: cursive;
+		font-size: 16px;
+	}
+	.footer{
+		position: fixed;
+		bottom: 0px;
+		left:0px;
+		width:100%;
+	}
+</style>
+
+</head>
+<body>
+<script type="text/javascript">
+$(document).ready(function() {
+
+	var socket = io.connect('http://127.0.0.1:5000/');
+
+	socket.on('connect', function() {
+		socket.send('User has connected!');
+	});
+
+	socket.on('message', function(msg) {
+		$("#messages").append('<li class="collection-item message">'+msg+'</li>');
+		console.log('Received message');
+	});
+
+	$('#sendbutton').on('click', function() {
+		socket.send($('#myMessage').val());
+		$('#myMessage').val('');
+	});
+
+});
+</script>
+<div class="navbar-fixed">
+	<nav>
+    <div class="nav-wrapper center-align message" style="width: 100%;" >
+        <a href="#" class="center">Socket io Live Chat App</a>
+    </div>
+	</nav>
+</div>
+	
+    <div class="container">
+
+        <div class="card">
+            <div class="card-content center-align">
+                <span class="message">Share this website's link with your friend to have chat with them</span>
+            </div>
+		</div>
+		
+
+        <div class="card">
+            <div class="card-content center-align">
+                <ul  class="collection" id="messages">
+                    <li class="collection-item message">All the Message Goes Here</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card" style="margin-bottom:200px;">
+            <div class="card-content">
+                <div class="row">
+                    <div class="input-field col offset-s2 s5">
+                        <input id="myMessage" type="text" class="validate">
+                        <label for="myMessage">Your Message Here</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <button class="btn waves-effect waves-light" id="sendbutton" type="submit" name="action">Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+
+	<footer class="page-footer footer">
+		<div class="footer-copyright">
+		  <div class="container">
+		  © 2020 Made by Areeb ur Rub
+		  <a class="grey-text text-lighten-4 right" href="https://github.com/areeburrub">Areeb's GitHub</a>
+		  </div>
+		</div>
+	</footer>
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</body>
+</html>
