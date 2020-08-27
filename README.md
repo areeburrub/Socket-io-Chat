@@ -3,3 +3,6 @@ This is a simple app build using Socket.io  Just trying it out.
 
 ## What it does
 it is a simple flask-app which works on flask-socketio and create a websocket between all the user on the network.
+
+## Added Waitress
+You can Run on local server run ```python serve.py```
